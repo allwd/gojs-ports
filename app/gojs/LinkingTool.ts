@@ -60,13 +60,6 @@ export default class LinkingTool extends go.LinkingTool {
             test.model.setDataProperty(node.data, "itemArray", newPorts)
 
             this.insertLink(this.temporaryFromNode, this.temporaryFromPort, node, node.findPort(String(portId)))
-            // node.linkDisconnected = (oldNode, oldPort, thisPort) => {
-            //     const  { from, fromPort, to, toPort } = oldPort.data
-            //     const fromNode = this.diagram.findNodeForKey(from)
-            //     const toNode = this.diagram.findNodeForKey(to)
-            //     this.removePort(fromNode.data, fromPort)
-            //     this.removePort(toNode.data, toPort)
-            // }
         }
         return super.doMouseUp.call(this)
     }
