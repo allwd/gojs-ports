@@ -1,5 +1,8 @@
 import * as go from 'gojs';
 import { injectable } from 'inversify';
+import ContainerClass from '../../helpers/Container';
+import { container } from '../../../inversify.config';
+import { componentSymbols } from '../../IoC/Symbols';
 
 @injectable()
 export default class NodeTemplateProvider {
@@ -14,11 +17,13 @@ export default class NodeTemplateProvider {
             go.Panel.Spot,
             { 
                 linkDisconnected: (oldNode, oldPort, thisPort) => {
+                    const Container: ContainerClass = container.get(componentSymbols.container);
+
                     if (!oldNode || !oldPort || !oldPort.data || !thisPort) {
                         return
                     }
 
-                    const diagram = (window as any).diagram;
+                    const diagram = Container.getDiagram();
                     const  { from, fromPort, to, toPort } = oldPort.data
 
                     if (!from || !fromPort || !to || !toPort) {

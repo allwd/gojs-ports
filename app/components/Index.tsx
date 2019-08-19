@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as go from 'gojs';
 import Diagram from './Diagram';
 import { container } from '../../inversify.config';
 import { componentSymbols } from '../IoC/Symbols';
