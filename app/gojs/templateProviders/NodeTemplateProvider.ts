@@ -17,9 +17,13 @@ export default class NodeTemplateProvider {
                     if (!oldNode || !oldPort || !oldPort.data || !thisPort) {
                         return
                     }
-                    
+
                     const diagram = (window as any).diagram;
                     const  { from, fromPort, to, toPort } = oldPort.data
+
+                    if (!from || !fromPort || !to || !toPort) {
+                        return
+                    }
 
                     const fromNode = diagram.findNodeForKey(from)
                     const toNode = diagram.findNodeForKey(to)
