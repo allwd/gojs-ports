@@ -60,28 +60,26 @@ export default class LinkingTool extends go.LinkingTool {
             test.model.setDataProperty(node.data, "itemArray", newPorts)
 
             this.insertLink(this.temporaryFromNode, this.temporaryFromPort, node, node.findPort(String(portId)))
-            node.linkDisconnected = (oldNode, oldPort, thisPort) => {
-                const  { from, fromPort, to, toPort } = oldPort.data
-                const fromNode = this.diagram.findNodeForKey(from)
-                const toNode = this.diagram.findNodeForKey(to)
-                this.remove(fromNode.data, fromPort)
-                this.remove(toNode.data, toPort)
-            }
+            // node.linkDisconnected = (oldNode, oldPort, thisPort) => {
+            //     const  { from, fromPort, to, toPort } = oldPort.data
+            //     const fromNode = this.diagram.findNodeForKey(from)
+            //     const toNode = this.diagram.findNodeForKey(to)
+            //     this.removePort(fromNode.data, fromPort)
+            //     this.removePort(toNode.data, toPort)
+            // }
         }
         return super.doMouseUp.call(this)
     }
 
     doNoLink() {
-        this.remove(this.originalFromNode.data, this.originalFromPort.portId)
-        // this.diagram.model.setDataProperty(this.originalFromNode.data, "itemArray", this.originalFromNode.data.itemArray.filter(node => this.originalFromPort.portId !== node.portId));
+        this.removePort(this.originalFromNode.data, this.originalFromPort.portId)
     }
 
-    remove = (data, portId) => {
+    removePort = (data, portId) => {
         this.diagram.model.setDataProperty(data, "itemArray", data.itemArray.filter(node => portId !== node.portId))
     }
 
     doDeactivate() {
-        console.log("deactivate")
         this.diagram.commitTransaction("findLinkablePort");
         super.doDeactivate();
     }

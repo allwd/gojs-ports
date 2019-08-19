@@ -12,6 +12,21 @@ export default class NodeTemplateProvider {
 
         return $(go.Node,
             go.Panel.Spot,
+            { 
+                linkDisconnected: (oldNode, oldPort, thisPort) => {
+                    if (!oldNode || !oldPort || !oldPort.data || !thisPort) {
+                        return
+                    }
+                    
+                    const diagram = (window as any).diagram;
+                    const  { from, fromPort, to, toPort } = oldPort.data
+
+                    const fromNode = diagram.findNodeForKey(from)
+                    const toNode = diagram.findNodeForKey(to)
+                    diagram.toolManager.linkingTool.removePort(fromNode.data, fromPort)
+                    diagram.toolManager.linkingTool.removePort(toNode.data, toPort)
+                }
+            },
             $(go.Shape, 'RoundedRectangle', 
                 {
                     desiredSize: new go.Size(100, 100), fill: 'green'
