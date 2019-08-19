@@ -3,13 +3,15 @@ import * as go from 'gojs';
 import Diagram from './Diagram';
 import { container } from '../../inversify.config';
 import { componentSymbols } from '../IoC/Symbols';
+import ContainerClass from '../helpers/Container';
 
 import './main.scss';
 
+const Container: ContainerClass = container.get(componentSymbols.container);
+
 function Index() {
     React.useEffect(() => {
-        const diagramFactory = container.get<Function>(componentSymbols.diagramFactory);
-        diagramFactory();
+        Container.init();
     }, [])
 
     return (
