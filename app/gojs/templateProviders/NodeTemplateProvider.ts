@@ -24,10 +24,10 @@ export default class NodeTemplateProvider {
                 itemTemplate:
                 $(go.Panel, go.Panel.Spot,
                     new go.Binding("alignment", "location", go.Spot.parse).makeTwoWay(go.Spot.stringify),
-                    new go.Binding("name", "portId"),
                     new go.Binding("portId", "portId"),
                     {
                         fromLinkable: true,
+                        toLinkable: true,
                         cursor: "pointer",
                     },
                     $(go.Shape, 'RoundedRectangle',

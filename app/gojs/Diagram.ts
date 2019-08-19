@@ -13,19 +13,33 @@ export default class Diagram extends go.Diagram {
             this.requestUpdate();
         };
         (window as any).diagram = this
+        this.undoManager.isEnabled = true;
 
         this.toolManager.linkingTool = new LinkingTool();
+        // this.toolManager.doMouseDown = function () {
+        //     (window as any).diagram.startTransaction("findLinkablePort");
+        //     const { lastInput, toolManager: { linkingTool } } = this.diagram;
+        //     const control = lastInput.control || lastInput.meta;
 
-        this.toolManager.doMouseDown = function () {
-            const { lastInput, toolManager: { linkingTool } } = this.diagram;
-            const control = lastInput.control || lastInput.meta;
+        //     if (control) {
+        //         console.log("Control and MOUSE !")
+        //         this.too
+        //         // return
+        //     }
 
-            if (!control) {
-                console.log("Control and MOUSE !")
-            }
+        //     go.ToolManager.prototype.doMouseDown.call(this);
+        // }
 
-            go.ToolManager.prototype.doMouseDown.call(this);
-        }
+        // this.toolManager.doMouseUp = function() {
+        //     go.ToolManager.prototype.doMouseUp.call(this);
+        //     (window as any).diagram.commitTransaction("findLinkablePort");
+        // }
+
+        this.linkTemplate = go.GraphObject.make(go.Link,
+            { routing: go.Link.AvoidsNodes },  // link route should avoid nodes
+            go.GraphObject.make(go.Shape),
+            go.GraphObject.make(go.Shape, { toArrow: "Standard" })
+          );
 
 
 
